@@ -5,5 +5,8 @@
         "--load-plugins=pylint_django",
         "--django-settings-module=courtz.settings",
     ],
-    "python.terminal.activateEnvironment": false
+    "python.terminal.activateEnvironment": false,
+    "cSpell.words": [
+        "courtzapi"
+    ]
 }

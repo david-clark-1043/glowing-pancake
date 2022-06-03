@@ -6,4 +6,4 @@ class Filing(models.Model):
     docket_index = models.IntegerField()
     filed_on = models.DateTimeField(auto_now_add=True)
     filing_type = models.ForeignKey("FilingType", on_delete=models.CASCADE)
-    filer_url = models.CharField(max_length=100)
+    file_url = models.CharField(max_length=100)
