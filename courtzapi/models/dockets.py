@@ -5,4 +5,4 @@ class Docket(models.Model):
     case_name = models.CharField(max_length=300, default="tbd")
     status = models.ForeignKey("CaseStatus", on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
-    completed_on = models.DateTimeField(null=True, blank=True)
+    closed_on = models.DateTimeField(null=True, blank=True)

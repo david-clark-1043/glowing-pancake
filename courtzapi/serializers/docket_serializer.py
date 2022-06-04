@@ -39,5 +39,5 @@ class DocketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Docket
         fields = ("id", "case_num", 'case_name', "status",
-                  "created_on", "completed_on", "managers", "filings")
+                  "created_on", "closed_on", "managers", "filings")
         depth = 3

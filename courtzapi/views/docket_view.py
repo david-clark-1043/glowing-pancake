@@ -15,13 +15,9 @@ class DocketView(ViewSet):
         filter_filer = request.query_params.get('filer', None)
         if filter_filer is not None:
             filer = Filer.objects.get(pk=filter_filer)
-            dockets = Docket.objects.annotate(
-                is_party=Count(
-                    'docketparty',
-                    filter=Q(party=filer)
-                )).filter(is_party=True)
+            dockets = Docket.objects.filter(parties__party=filer)
         else:
-            dockets = Docket.objects.first()
+            dockets = Docket.objects.all()
         
         serializer = DocketSerializer(dockets, many=True)
         return Response(serializer.data)

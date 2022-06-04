@@ -10,3 +10,7 @@ INSERT INTO courtzapi_partytype
 VALUES (null, "plaintiff");
 INSERT INTO courtzapi_partytype
 VALUES (null, "defendant");
+INSERT INTO courtzapi_docketparty
+    ('docket_id', 'party_id', 'party_type_id')
+VALUES 
+    (6, 1, 1)

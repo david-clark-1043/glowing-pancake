@@ -11,7 +11,7 @@ class FilingDocketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Docket
         fields = ("id", "case_num", 'case_name', "status",
-                  "created_on", "completed_on")
+                  "created_on", "closed_on")
         depth = 2
 
 class FilingSerializer(serializers.ModelSerializer):
