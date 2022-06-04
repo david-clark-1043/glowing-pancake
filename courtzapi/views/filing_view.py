@@ -15,8 +15,10 @@ class FilingView(ViewSet):
         return ""
     
     def retrieve(self, request, pk):
-        """ GET single filing """
-        return ""
+        """GET single filing"""
+        filing = Filing.objects.get(pk=pk)
+        serializer = FilingSerializer(filing)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
     def create(self, request):
         """ POST single filing """
@@ -44,7 +46,7 @@ class FilingView(ViewSet):
         
         # or if the filing should create a docket as well
         else:
-            docket = Docket.objects.get(pk=new_docket)
+            docket = Docket.objects.get(pk=request.data["docket_id"])
         
         filer = Filer.objects.get(pk=request.auth.user.id)
         filing_type= FilingType.objects.get(pk=request.data['filing_type_id'])
