@@ -51,14 +51,24 @@ class FilingView(ViewSet):
         filer = Filer.objects.get(pk=request.auth.user.id)
         filing_type= FilingType.objects.get(pk=request.data['filing_type_id'])
         docket_index = len(docket.filings.all()) + 1
+        judge_req = False
+        is_judge = False
+        
+        if filing_type.id == 2:
+            judge_req = True
+            is_judge = filer.filer_type_id == 2
+        
+        if judge_req and not is_judge:
+            return Response({'message': "Only judges can make orders"}, status=status.HTTP_401_UNAUTHORIZED)   
+
         new_filing = Filing.objects.create(
             filer=filer,
             docket=docket,
             docket_index=docket_index,
             filing_type=filing_type,
+            title=request.data['title'],
             file_url = request.data['file_url']
         )
-        
         serializer = FilingSerializer(new_filing)
         
         return Response(serializer.data, status=status.HTTP_201_CREATED)

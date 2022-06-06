@@ -3,6 +3,6 @@ from .filer_type_serializer import FilerTypeSerializer
 from .filing_type_serializer import FilingTypeSerializer
 from .party_type_serializer import PartyTypeSerializer
 from .docket_serializer import DocketSerializer
-from .filer_serializer import FilerSerializer
+from .filer_serializer import FilerSerializer, UpdateFilerSerializer, UserSerializer
 from .filing_serializer import FilingSerializer
 # from .docket_party_serializer import DocketPartySerializer

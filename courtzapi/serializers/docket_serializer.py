@@ -24,7 +24,7 @@ class DocketFilerSerializer(serializers.ModelSerializer):
 
 class DocketFilingSerializer(serializers.ModelSerializer):
     filing_type = FilingTypeSerializer()
-    
+    filer = DocketFilerSerializer()
     class Meta:
         model = Filing
         fields = ('id', 'filer', 'title', 'docket_index', 'filed_on',
