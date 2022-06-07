@@ -24,3 +24,14 @@ WHERE user_id = 2
 UPDATE auth_user
 SET is_staff = 1
 WHERE id = 3
+
+UPDATE courtzapi_filer
+SET id = 5
+WHERE id = 4
+
+DELETE FROM courtzapi_docketparty
+WHERE id = 3
+
+UPDATE courtzapi_docket
+SET case_num = "B-000001"
+WHERE id = 4

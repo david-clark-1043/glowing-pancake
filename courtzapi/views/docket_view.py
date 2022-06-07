@@ -6,7 +6,9 @@ from django.db.models import Count, Q
 from rest_framework.decorators import action
 
 from courtzapi.models import Docket, CaseStatus
+from courtzapi.models.docket_parties import DocketParty
 from courtzapi.models.filers import Filer
+from courtzapi.models.party_type import PartyType
 from courtzapi.serializers import DocketSerializer
 
 class DocketView(ViewSet):
@@ -16,6 +18,7 @@ class DocketView(ViewSet):
         """
         filter_filer = request.query_params.get('filer', None)
         filter_open = request.query_params.get('open', None)
+        filter_case_num = request.query_params.get('num', None)
         
         if filter_filer is not None:
             filer = Filer.objects.get(pk=filter_filer)
@@ -29,6 +32,9 @@ class DocketView(ViewSet):
         
         if filter_open is not None:
             dockets = dockets.filter(status_id=1)
+            
+        if filter_case_num is not None:
+            dockets = dockets.filter(case_num__contains=filter_case_num)
         
         serializer = DocketSerializer(dockets, many=True)
         return Response(serializer.data)
@@ -57,10 +63,39 @@ class DocketView(ViewSet):
         docket.managers.add(manager)
         return Response({'message': 'Manager Added'}, status=status.HTTP_201_CREATED)
     
-    @action(methods=['delete'], detail=True)
+    @action(methods=['put'], detail=True)
     def unassignManager(self, request, pk):
         """ DELETE method to remove assigned managers from a docket """
         docket = Docket.objects.get(pk=pk)
         manager = Filer.objects.get(pk=request.data['manager_id'])
         docket.managers.remove(manager)
         return Response({'message': 'Manager Removed'}, status=status.HTTP_201_CREATED)
+
+    @action(methods=['put'], detail=True)
+    def assignParty(self, request, pk):
+        """ PUT method to assign parties to a docket"""
+        docket = Docket.objects.get(pk=pk)
+        filer = Filer.objects.get(pk=request.data['filer_id'])
+        party_type = PartyType.objects.get(pk=request.data['party_type_id'])
+        docket_party = DocketParty.objects.create(
+            docket=docket,
+            party=filer,
+            party_type=party_type
+        )
+        return Response({'message': "party added"}, status=status.HTTP_201_CREATED)
+    
+    @action(methods=['put'], detail=True)
+    def unassignParty(self, request, pk):
+        """ PUT method to assign parties to a docket"""
+        docket = Docket.objects.get(pk=pk)
+        filer = Filer.objects.get(pk=request.data['filer_id'])
+        docket_parties = DocketParty.objects.filter(docket=docket, party=filer)
+        
+        for docket_party in docket_parties:
+            docket_party.delete()
+        
+        return Response({'message': "party deleted"}, status=status.HTTP_201_CREATED)
+    
+
+
+

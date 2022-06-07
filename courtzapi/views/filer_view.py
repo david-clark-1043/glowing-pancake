@@ -22,6 +22,12 @@ class FilerView(ViewSet):
     def list(self, request):
         """ GET all filers """
         filers = Filer.objects.all()
+        
+        party_type_filter = request.query_params.get('type', None)
+        
+        if party_type_filter is not None:
+            filers = filers.filter(filer_type__filer_type=party_type_filter)
+        
         serializer = FilerSerializer(filers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     

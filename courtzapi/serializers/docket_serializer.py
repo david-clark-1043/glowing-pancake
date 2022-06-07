@@ -35,9 +35,9 @@ class DocketSerializer(serializers.ModelSerializer):
     status = CaseStatusSerializer()
     managers = FilerSerializer(many=True)
     filings = DocketFilingSerializer(many=True)
-    # parties = DocketPartySerializer(many=True)
+    # parties = DocketFilerSerializer(many=True)
     class Meta:
         model = Docket
         fields = ("id", "case_num", 'case_name', "status",
-                  "created_on", "closed_on", "managers", "filings")
+                  "created_on", "closed_on", "managers", "parties", "filings")
         depth = 3
