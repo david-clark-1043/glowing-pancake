@@ -1,6 +1,9 @@
+import base64
+import uuid
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
+from django.core.files.base import ContentFile
 
 from courtzapi.models import Filing
 from courtzapi.models.case_status import CaseStatus
@@ -61,13 +64,29 @@ class FilingView(ViewSet):
         if judge_req and not is_judge:
             return Response({'message': "Only judges can make orders"}, status=status.HTTP_401_UNAUTHORIZED)   
 
+        # Create a new instance of the game picture model you defined
+        # Example: game_picture = GamePicture()
+
+        filer_format, pdfstr = request.data["file_pdf"].split(';base64,')
+        ext = filer_format.split('/')[-1]
+        data = ContentFile(base64.b64decode(pdfstr), name=f'{request.data["title"]}.{ext}')
+
+        # Give the image property of your game picture instance a value
+        # For example, if you named your property `action_pic`, then
+        # you would specify the following code:
+        #
+        #       game_picture.action_pic = data
+
+        # Save the data to the database with the save() method
+
         new_filing = Filing.objects.create(
             filer=filer,
             docket=docket,
             docket_index=docket_index,
             filing_type=filing_type,
             title=request.data['title'],
-            file_url = request.data['file_url']
+            file_url = request.data['file_url'],
+            file_pdf = data
         )
         serializer = FilingSerializer(new_filing)
         

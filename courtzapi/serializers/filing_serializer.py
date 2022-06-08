@@ -20,5 +20,6 @@ class FilingSerializer(serializers.ModelSerializer):
     filing_type = FilingTypeSerializer()
     class Meta:
         model = Filing
-        fields = ('id', 'filer', 'title', 'docket', 'docket_index', 'filed_on', 'filing_type', 'file_url')
+        fields = ('id', 'filer', 'title', 'docket', 'docket_index',
+                  'filed_on', 'filing_type', 'file_url', 'file_pdf')
         depth = 1
