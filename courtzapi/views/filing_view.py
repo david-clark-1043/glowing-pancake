@@ -52,17 +52,13 @@ class FilingView(ViewSet):
             docket = Docket.objects.get(pk=request.data["docket_id"])
         
         filer = Filer.objects.get(pk=request.auth.user.id)
+        
+        # parties = [docket_party.rep_party for docket_party in docket.parties]
+        
+        # if filer not in docket.parties
+        
         filing_type= FilingType.objects.get(pk=request.data['filing_type_id'])
         docket_index = len(docket.filings.all()) + 1
-        judge_req = False
-        is_judge = False
-        
-        if filing_type.id == 2:
-            judge_req = True
-            is_judge = filer.filer_type_id == 2
-        
-        if judge_req and not is_judge:
-            return Response({'message': "Only judges can make orders"}, status=status.HTTP_401_UNAUTHORIZED)   
 
         # Create a new instance of the game picture model you defined
         # Example: game_picture = GamePicture()

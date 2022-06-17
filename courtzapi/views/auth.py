@@ -55,7 +55,7 @@ def register_user(request):
         last_name=request.data['last_name'],
     )
 
-    # Now save the extra info in the gameraterapi_gamer table
+    # Now save the extra info in the coutzapi_filer table
     filer_type = FilerType.objects.get(pk=request.data['filer_type_id'])
     filer = Filer.objects.create(
         address_line1=request.data['address_line1'],

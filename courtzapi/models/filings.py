@@ -7,5 +7,6 @@ class Filing(models.Model):
     docket_index = models.IntegerField()
     filed_on = models.DateTimeField(auto_now_add=True)
     filing_type = models.ForeignKey("FilingType", on_delete=models.CASCADE)
-    file_url = models.CharField(max_length=100)
+    # commenting out file_url because file_pdf has the path url to it
+    # file_url = models.CharField(max_length=100)
     file_pdf = models.FileField(upload_to='caseFiles', default="")
