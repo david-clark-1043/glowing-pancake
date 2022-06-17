@@ -1,4 +1,5 @@
 from .case_status import CaseStatus
+from .docket_filers import DocketFilers
 from .docket_parties import DocketParty
 from .dockets import Docket
 from .filer_type import FilerType
@@ -6,6 +7,3 @@ from .filers import Filer
 from .filing_type import FilingType
 from .filings import Filing
 from .party_type import PartyType
-from .rep_firms import RepFirm
-from .rep__firm_parties import RepFirmParty
-from .firms import Firm

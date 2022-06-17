@@ -26,13 +26,13 @@ class FilerSerializer(serializers.ModelSerializer):
 
 
 class UpdateFilerSerializer(serializers.ModelSerializer):
-    filer_type = FilerTypeSerializer()
+    #     filer_type = FilerTypeSerializer()
     # user = UserSerializer()
     # managing_dockets = DocketSerializer(many=True)
     class Meta:
         model = Filer
         fields = ('id', 'address_line1', 'address_line2',
                   'address_city', 'state_code', 'zip_code',
-                  'phone_num', 'filer_type')
+                  'phone_num')
         # not including 'managing_dockets'
         depth = 2
