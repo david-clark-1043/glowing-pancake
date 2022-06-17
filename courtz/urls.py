@@ -18,11 +18,6 @@ from django.contrib import admin
 from courtzapi import views
 from django.urls import path, include
 
-from django.conf import settings
-from django.urls import re_path
-from django.views.static import serve
-
-
 router = DefaultRouter(trailing_slash=False)
 router.register(r'filers', views.FilerView, 'filer')
 router.register(r'filings', views.FilingView, 'filing')
@@ -37,12 +32,3 @@ urlpatterns = [
     path('login', views.login_user),
     path('admin/', admin.site.urls),
 ]
-
-# ... the rest of your URLconf goes here ...
-
-if settings.DEBUG:
-    urlpatterns += [
-        re_path(r'^media/(?P<path>.*)$', serve, {
-            'document_root': settings.MEDIA_ROOT,
-        }),
-    ]
