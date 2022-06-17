@@ -1,5 +1,19 @@
+UPDATE courtzapi_filertype
+SET filer_type = "party"
+WHERE id = 3;
+
+DELETE FROM courtzapi_filertype
+WHERE id = 1;
+
+
 INSERT INTO courtzapi_filertype
-VALUES (null, "clerk")
+VALUES (null, "clerk");
+INSERT INTO courtzapi_filertype
+VALUES (null, "judge");
+INSERT INTO courtzapi_filertype
+VALUES (null, "pro se");
+INSERT INTO courtzapi_filertype
+VALUES (null, "filer");
 
 INSERT INTO courtzapi_casestatus
 VALUES (null, "open");
